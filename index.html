@@ -17,7 +17,7 @@ const { useState, useMemo } = React;
 const LOGO_SRC = "data:image/jpeg;base64,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";
 
 // Paste the Google Apps Script Web App URL here after deployment (see setup notes).
-const SHEETS_URL = "https://script.google.com/macros/s/AKfycbwDMqNmNJpn0mERmeMelITQ5Ut9UuamUWbt9gd_pq9_FcuFHtZh-HCMOozd1oPj-Hww8g/exec";
+const SHEETS_URL = "";
 
 // The admin password now lives in the Apps Script backend (Script Properties),
 // not here — so it never ships to anyone's browser. See apps-script.gs.
@@ -44,24 +44,169 @@ const DINNER_KOOTU = ["Chow-chow kootu", "Pumpkin kootu", "Carrot-beans kootu", 
 
 const EVENING_SNACKS = ["Roasted chana (1/4 cup) + buttermilk", "Sprouts sundal (1/2 cup)", "Guava + 5 almonds", "Roasted peanuts (1 tbsp) + buttermilk", "Orange + 5 walnuts", "Boiled kadalai sundal + plain tea", "Apple + 5 almonds"];
 
+// Small, protein/fat-forward, minimal-carb — meant to prevent a night-time blood sugar dip,
+// not to be a second dessert. Warm milk at bedtime is already a normal Tamil household habit.
+const BEDTIME_SNACKS = [
+  "Small glass of warm milk, no sugar (1/2 cup)",
+  "5–6 almonds",
+  "2 boiled egg whites",
+  "1 tbsp roasted chana, small handful",
+  "Small cube of paneer (20g)",
+  "Small glass of warm milk with a pinch of turmeric, no sugar",
+  "5 walnuts or peanuts, small handful",
+];
+
 const PROTEIN_CYCLE = ["egg", "veg", "chicken", "egg", "fish", "veg", "chicken"];
 
 const CHEAT_DAYS = { 4: "1 small mysore pak (~20g)", 9: "1 small ladoo or 2 tbsp semiya payasam", 14: "1 small piece jangiri (~20g)" };
 
+/* ---------------------------------------------------------
+   CURRENT-DIET FOOD DATABASE
+   Approximate values per one standard serving (typical home portion).
+   Sources: general Indian food-composition references — treat as
+   counselling-grade averages, not lab-measured values.
+--------------------------------------------------------- */
+const FOOD_DB = [
+  { key: "idli", name: "Idli (1 medium)", cat: "carb", kcal: 58, protein: 2, carb: 12, fat: 0.4 },
+  { key: "dosa", name: "Dosa, plain (1 medium)", cat: "carb", kcal: 133, protein: 3, carb: 18, fat: 5.5 },
+  { key: "rice", name: "Rice, cooked (1 cup)", cat: "carb", kcal: 200, protein: 4, carb: 45, fat: 0.5 },
+  { key: "chapati", name: "Chapati (1 medium)", cat: "carb", kcal: 104, protein: 3, carb: 18, fat: 2.5 },
+  { key: "poori", name: "Poori (1 piece)", cat: "fried", kcal: 100, protein: 2, carb: 12, fat: 5 },
+  { key: "vada", name: "Vada (1 medium)", cat: "fried", kcal: 97, protein: 3, carb: 12, fat: 4 },
+  { key: "upma", name: "Upma (1 cup)", cat: "carb", kcal: 250, protein: 6, carb: 35, fat: 9 },
+  { key: "pongal", name: "Pongal (1 cup)", cat: "carb", kcal: 280, protein: 7, carb: 40, fat: 10 },
+  { key: "adai", name: "Adai (1 piece)", cat: "carb", kcal: 150, protein: 5, carb: 22, fat: 5 },
+  { key: "bread", name: "Bread, white (1 slice)", cat: "carb", kcal: 75, protein: 2.5, carb: 14, fat: 1 },
+  { key: "jam", name: "Jam (1 tbsp)", cat: "sweet", kcal: 50, protein: 0, carb: 13, fat: 0 },
+  { key: "sambar", name: "Sambar (1 cup)", cat: "protein", kcal: 120, protein: 6, carb: 18, fat: 3 },
+  { key: "rasam", name: "Rasam (1 cup)", cat: "veg", kcal: 60, protein: 2, carb: 10, fat: 1.5 },
+  { key: "dal", name: "Dal, cooked (1 cup)", cat: "protein", kcal: 200, protein: 12, carb: 30, fat: 3 },
+  { key: "sprouts", name: "Sprouts (1 cup)", cat: "protein", kcal: 100, protein: 7, carb: 17, fat: 0.5 },
+  { key: "egg_boiled", name: "Egg, boiled (1)", cat: "protein", kcal: 78, protein: 6, carb: 0.6, fat: 5 },
+  { key: "egg_white", name: "Egg white, boiled (1)", cat: "protein", kcal: 17, protein: 3.6, carb: 0.2, fat: 0.1 },
+  { key: "egg_curry", name: "Egg curry (1 egg + gravy)", cat: "protein", kcal: 120, protein: 7, carb: 4, fat: 8 },
+  { key: "chicken_curry", name: "Chicken curry (100g cooked)", cat: "protein", kcal: 190, protein: 25, carb: 4, fat: 8 },
+  { key: "fish_curry", name: "Fish curry (100g cooked)", cat: "protein", kcal: 150, protein: 22, carb: 3, fat: 6 },
+  { key: "paneer", name: "Paneer (100g)", cat: "protein", kcal: 265, protein: 18, carb: 4, fat: 20 },
+  { key: "tofu", name: "Tofu, firm (100g)", cat: "protein", kcal: 76, protein: 8, carb: 1.9, fat: 4.8 },
+  { key: "curd", name: "Curd/yogurt, plain (1 cup)", cat: "dairy", kcal: 98, protein: 6, carb: 8, fat: 5 },
+  { key: "buttermilk", name: "Buttermilk / mor (1 cup)", cat: "dairy", kcal: 40, protein: 3, carb: 4, fat: 1 },
+  { key: "milk", name: "Milk, whole (1 cup)", cat: "dairy", kcal: 150, protein: 8, carb: 12, fat: 8 },
+  { key: "poriyal", name: "Poriyal / veg stir-fry (1 cup)", cat: "veg", kcal: 90, protein: 2, carb: 10, fat: 5 },
+  { key: "vegetable_plain", name: "Vegetable, cooked, non-starchy (1 cup)", cat: "veg", kcal: 50, protein: 2, carb: 8, fat: 1 },
+  { key: "aviyal", name: "Aviyal (1 cup)", cat: "veg", kcal: 150, protein: 3, carb: 15, fat: 9 },
+  { key: "coconut_chutney", name: "Coconut chutney (2 tbsp)", cat: "fat", kcal: 70, protein: 1, carb: 3, fat: 6 },
+  { key: "ghee", name: "Ghee (1 tsp)", cat: "fat", kcal: 45, protein: 0, carb: 0, fat: 5 },
+  { key: "oil", name: "Cooking oil (1 tsp)", cat: "fat", kcal: 40, protein: 0, carb: 0, fat: 4.5 },
+  { key: "peanuts", name: "Peanuts, roasted (small handful)", cat: "fat", kcal: 105, protein: 4.5, carb: 3.5, fat: 9 },
+  { key: "almonds", name: "Almonds (5 pieces)", cat: "fat", kcal: 35, protein: 1.3, carb: 1.3, fat: 3 },
+  { key: "banana", name: "Banana (1 medium)", cat: "fruit", kcal: 105, protein: 1.3, carb: 27, fat: 0.4 },
+  { key: "apple", name: "Apple (1 medium)", cat: "fruit", kcal: 95, protein: 0.5, carb: 25, fat: 0.3 },
+  { key: "tea_sweet", name: "Tea, with milk & sugar (1 cup)", cat: "beverage", kcal: 55, protein: 1, carb: 9, fat: 1.5 },
+  { key: "coffee_sweet", name: "Filter coffee, with milk & sugar (1 cup)", cat: "beverage", kcal: 60, protein: 1.5, carb: 9, fat: 2 },
+  { key: "sugar", name: "Sugar (1 tsp)", cat: "sweet", kcal: 16, protein: 0, carb: 4, fat: 0 },
+  { key: "biscuits", name: "Biscuits, plain/glucose (2 pieces)", cat: "sweet", kcal: 90, protein: 1.5, carb: 15, fat: 3 },
+  { key: "payasam", name: "Payasam (1 small cup)", cat: "sweet", kcal: 180, protein: 3, carb: 30, fat: 5 },
+  { key: "mysore_pak", name: "Mysore pak (1 piece)", cat: "sweet", kcal: 150, protein: 1.5, carb: 18, fat: 8 },
+  { key: "ladoo", name: "Ladoo (1 piece)", cat: "sweet", kcal: 150, protein: 2, carb: 20, fat: 7 },
+  { key: "samosa", name: "Samosa (1 piece)", cat: "fried", kcal: 260, protein: 4, carb: 24, fat: 17 },
+  { key: "bajji", name: "Bajji / pakora (1 piece)", cat: "fried", kcal: 90, protein: 1.5, carb: 9, fat: 5.5 },
+  { key: "soft_drink", name: "Soft drink / soda (1 glass, 200ml)", cat: "beverage", kcal: 90, protein: 0, carb: 24, fat: 0 },
+  { key: "fruit_juice", name: "Packaged fruit juice (1 glass, 200ml)", cat: "beverage", kcal: 100, protein: 0.5, carb: 24, fat: 0 },
+];
+
+const MEAL_SLOTS = ["Early morning", "Breakfast", "Mid-morning", "Lunch", "Evening snack", "Dinner", "Bedtime"];
+
+function analyzeCurrentDiet(entries, targets) {
+  const totals = entries.reduce(
+    (acc, e) => {
+      const food = FOOD_DB.find((f) => f.key === e.foodKey);
+      if (!food) return acc;
+      const qty = parseFloat(e.qty) || 0;
+      acc.kcal += food.kcal * qty;
+      acc.protein += food.protein * qty;
+      acc.carb += food.carb * qty;
+      acc.fat += food.fat * qty;
+      return acc;
+    },
+    { kcal: 0, protein: 0, carb: 0, fat: 0 }
+  );
+
+  const carbPctCurrent = totals.kcal > 0 ? Math.round(((totals.carb * 4) / totals.kcal) * 100) : 0;
+  const findings = [];
+
+  if (entries.length === 0) {
+    return { totals, carbPctCurrent, findings };
+  }
+
+  if (targets) {
+    const calDiff = totals.kcal - targets.calories;
+    if (calDiff > targets.calories * 0.15) {
+      findings.push(`Current intake is running roughly ${Math.round(calDiff)} kcal/day above the target — a likely driver of weight gain or a stalled plateau.`);
+    } else if (calDiff < -targets.calories * 0.2) {
+      findings.push(`Current intake is notably below the target (by about ${Math.round(-calDiff)} kcal) — this can feel restrictive without necessarily improving body composition if protein and timing aren't right.`);
+    }
+
+    if (totals.protein < targets.proteinG * 0.7) {
+      findings.push(`Protein is low relative to target (${Math.round(totals.protein)}g vs ${targets.proteinG}g needed) — a common pattern in a carb-heavy home diet. The new chart raises this via egg/chicken/fish/paneer/dal at each meal.`);
+    }
+
+    if (carbPctCurrent > 65) {
+      findings.push(`Carbohydrate share is high (~${carbPctCurrent}% of calories) against the 50–60% target — and if it's mostly rice/idli/dosa without protein alongside, that's a likely driver of after-meal sugar spikes.`);
+    }
+  }
+
+  const breakfastEntries = entries.filter((e) => e.slot === "Breakfast");
+  const breakfastHasProtein = breakfastEntries.some((e) => {
+    const food = FOOD_DB.find((f) => f.key === e.foodKey);
+    return food && food.cat === "protein";
+  });
+  if (breakfastEntries.length > 0 && !breakfastHasProtein) {
+    findings.push("Breakfast currently has no protein source logged — likely the single biggest driver of morning glucose spikes. The new chart pairs breakfast with egg or sprouts every day.");
+  }
+
+  const friedSweetCount = entries.filter((e) => {
+    const food = FOOD_DB.find((f) => f.key === e.foodKey);
+    return food && (food.cat === "fried" || food.cat === "sweet");
+  }).length;
+  if (friedSweetCount >= 3) {
+    findings.push(`${friedSweetCount} fried or sweet items logged across the day — these add calories with little satiety or micronutrient value. The new chart keeps this to one planned, portioned treat every 4–5 days.`);
+  }
+
+  const hasVeg = entries.some((e) => {
+    const food = FOOD_DB.find((f) => f.key === e.foodKey);
+    return food && food.cat === "veg";
+  });
+  if (!hasVeg) {
+    findings.push("No non-starchy vegetables logged for the day — fibre and micronutrient intake is likely low. The new chart builds in a vegetable side at both lunch and dinner.");
+  }
+
+  const beverageSugarCount = entries.filter((e) => {
+    const food = FOOD_DB.find((f) => f.key === e.foodKey);
+    return food && (food.key === "tea_sweet" || food.key === "coffee_sweet" || food.key === "soft_drink" || food.key === "fruit_juice");
+  }).length;
+  if (beverageSugarCount >= 3) {
+    findings.push(`${beverageSugarCount} sugared beverages logged (tea/coffee/soft drink/juice) — these add up quickly without registering as "food." Worth counting them the same as a meal.`);
+  }
+
+  return { totals, carbPctCurrent, findings };
+}
+
+
 function proteinBlock(type, dietType) {
   if (dietType === "veg") {
     switch (type) {
-      case "egg": return { breakfastAdd: "Paruppu podi (1 tbsp) with dosa", lunchProtein: "Extra paruppu kuzhambu (1 cup) + curd" };
-      case "chicken": return { breakfastAdd: "Sprouts sundal (1/2 cup)", lunchProtein: "Soya chunk curry (25g dry soya)" };
-      case "fish": return { breakfastAdd: "Sprouts sundal (1/2 cup)", lunchProtein: "Paneer curry (60g paneer)" };
-      default: return { breakfastAdd: "Sprouts sundal (1/2 cup)", lunchProtein: "Kadala (chickpea) curry (3/4 cup)" };
+      case "egg": return { breakfastAdd: "Paruppu podi (1 tbsp) with dosa", lunchProtein: "Extra paruppu kuzhambu (1.5 cups) + paneer (30g)", dinnerProtein: "Extra curd (1 cup) + paneer (20g)" };
+      case "chicken": return { breakfastAdd: "Sprouts sundal (1/2 cup)", lunchProtein: "Soya chunk curry (35g dry soya)", dinnerProtein: "30g paneer + curd (small cup)" };
+      case "fish": return { breakfastAdd: "Sprouts sundal (1/2 cup)", lunchProtein: "Tofu or paneer curry (80g)", dinnerProtein: "30g paneer + curd (small cup)" };
+      default: return { breakfastAdd: "Sprouts sundal (1/2 cup)", lunchProtein: "Kadala (chickpea) curry (1 cup) + paneer (30g)", dinnerProtein: "30g paneer + curd (small cup)" };
     }
   }
   switch (type) {
-    case "egg": return { breakfastAdd: "1 boiled egg", lunchProtein: "Paruppu kuzhambu (1 cup) + curd" };
-    case "chicken": return { breakfastAdd: "Sprouts sundal (1/2 cup)", lunchProtein: "Chicken curry (75–90g cooked, skinless)" };
-    case "fish": return { breakfastAdd: "Sprouts sundal (1/2 cup)", lunchProtein: "Fish or prawn curry (75–90g cooked)" };
-    default: return { breakfastAdd: "Sprouts sundal (1/2 cup)", lunchProtein: "Kadala (chickpea) curry (3/4 cup)" };
+    case "egg": return { breakfastAdd: "1 whole egg + 2 egg whites (boiled)", lunchProtein: "Paruppu kuzhambu (1 cup) + curd", dinnerProtein: "Curd (1 cup)" };
+    case "chicken": return { breakfastAdd: "Sprouts sundal (1/2 cup)", lunchProtein: "Chicken curry (90–110g cooked, skinless)", dinnerProtein: "2 egg whites (boiled) + curd (small cup)" };
+    case "fish": return { breakfastAdd: "Sprouts sundal (1/2 cup)", lunchProtein: "Fish or prawn curry (90–110g cooked)", dinnerProtein: "2 egg whites (boiled) + curd (small cup)" };
+    default: return { breakfastAdd: "Sprouts sundal (1/2 cup)", lunchProtein: "Kadala (chickpea) curry (1 cup) + paneer (30g)", dinnerProtein: "2 egg whites (boiled) + curd (small cup)" };
   }
 }
 
@@ -75,32 +220,100 @@ const GUT_TIPS = [
   "Eat slowly and chew well — this alone measurably improves digestion by giving the gut-brain signalling loop time to register fullness.",
 ];
 
+// Rough protein content (g) of the template items themselves — used only to give a
+// live "does this day's template cover the target" check, not for the food database
+// used in the Current Diet log (which is more exact and food-specific).
+const BREAKFAST_DISH_PROTEIN = [4, 6, 12, 8, 8, 6, 6]; // per BREAKFASTS index
+const ADD_ON_PROTEIN = {
+  "1 whole egg + 2 egg whites (boiled)": 13.2,
+  "Sprouts sundal (1/2 cup)": 3.5,
+  "Paruppu podi (1 tbsp) with dosa": 2,
+};
+const MIDMORNING_PROTEIN = { "Buttermilk (1 cup, no sugar)": 3, "Handful (8–10) roasted peanuts or almonds": 4.5 };
+const LUNCH_GRAVY_PROTEIN = { "Sambar (mixed vegetable)": 6, "Mor kuzhambu": 2, "Kara kuzhambu (light, less oil)": 2, "Paruppu kuzhambu": 12, "Vatha kuzhambu (light)": 2, "Sambar (drumstick)": 6 };
+const LUNCH_PROTEIN_G = {
+  "Paruppu kuzhambu (1 cup) + curd": 18,
+  "Chicken curry (90–110g cooked, skinless)": 24,
+  "Fish or prawn curry (90–110g cooked)": 21,
+  "Kadala (chickpea) curry (1 cup) + paneer (30g)": 14.7,
+  "Extra paruppu kuzhambu (1.5 cups) + paneer (30g)": 23.4,
+  "Soya chunk curry (35g dry soya)": 17.5,
+  "Tofu or paneer curry (80g)": 14.4,
+};
+const EVENING_SNACK_PROTEIN = {
+  "Roasted chana (1/4 cup) + buttermilk": 8,
+  "Sprouts sundal (1/2 cup)": 3.5,
+  "Guava + 5 almonds": 1.8,
+  "Roasted peanuts (1 tbsp) + buttermilk": 7.5,
+  "Orange + 5 walnuts": 3.5,
+  "Boiled kadalai sundal + plain tea": 6,
+  "Apple + 5 almonds": 1.8,
+};
+const DINNER_PROTEIN_G = {
+  "Curd (1 cup)": 6,
+  "2 egg whites (boiled) + curd (small cup)": 10.2,
+  "Extra curd (1 cup) + paneer (20g)": 9.6,
+  "30g paneer + curd (small cup)": 8.4,
+};
+const BEDTIME_PROTEIN_G = {
+  "Small glass of warm milk, no sugar (1/2 cup)": 4,
+  "5–6 almonds": 1.5,
+  "2 boiled egg whites": 7,
+  "1 tbsp roasted chana, small handful": 2.5,
+  "Small cube of paneer (20g)": 3.6,
+  "Small glass of warm milk with a pinch of turmeric, no sugar": 4,
+  "5 walnuts or peanuts, small handful": 3,
+};
+const PORIYAL_PROTEIN = 2;
+const DINNER_KOOTU_PROTEIN = 4;
+
+function estimateTemplateProtein(idx, midMorning, eveningSnack, bedtimeSnack, breakfastAdd, lunchProtein, dinnerProtein) {
+  return Math.round(
+    BREAKFAST_DISH_PROTEIN[idx] +
+      (ADD_ON_PROTEIN[breakfastAdd] || 0) +
+      (MIDMORNING_PROTEIN[midMorning] || 0) +
+      LUNCH_GRAVY_PROTEIN[LUNCH_GRAVY[idx]] +
+      PORIYAL_PROTEIN +
+      (LUNCH_PROTEIN_G[lunchProtein] || 0) +
+      (EVENING_SNACK_PROTEIN[eveningSnack] || 0) +
+      DINNER_KOOTU_PROTEIN +
+      (DINNER_PROTEIN_G[dinnerProtein] || 0) +
+      (BEDTIME_PROTEIN_G[bedtimeSnack] || 0)
+  );
+}
+
 function buildPlan(dietType) {
   const days = [];
   for (let i = 1; i <= 14; i++) {
     const idx = (i - 1) % 7;
     const type = PROTEIN_CYCLE[idx];
     const pb = proteinBlock(type, dietType);
+    const midMorning = idx % 2 === 0 ? "Buttermilk (1 cup, no sugar)" : "Handful (8–10) roasted peanuts or almonds";
+    const eveningSnack = EVENING_SNACKS[idx];
+    const bedtimeSnack = BEDTIME_SNACKS[idx];
     days.push({
       day: i,
       breakfast: BREAKFASTS[idx],
       breakfastAdd: pb.breakfastAdd,
-      midMorning: idx % 2 === 0 ? "Buttermilk (1 cup, no sugar)" : "Handful (8–10) roasted peanuts or almonds",
+      midMorning,
       lunchGravy: LUNCH_GRAVY[idx],
       poriyal: PORIYAL[idx],
       lunchProtein: pb.lunchProtein,
       lunchCarb: "Rice + 30–40% cooked millet mixed in, 1 small katori (or 2 small chapati)",
-      eveningSnack: EVENING_SNACKS[idx],
+      eveningSnack,
       dinnerCarb: "2 small millet/wheat chapati (or 1 small katori rice, lighter than lunch)",
       dinnerKootu: DINNER_KOOTU[idx],
-      dinnerProtein: type === "egg" ? "Curd (1 cup)" : "Curd or leftover protein, smaller portion",
+      dinnerProtein: pb.dinnerProtein,
+      bedtimeSnack,
       cheat: CHEAT_DAYS[i] || null,
       proteinType: type,
       gutTip: GUT_TIPS[idx],
+      templateProteinG: estimateTemplateProtein(idx, midMorning, eveningSnack, bedtimeSnack, pb.breakfastAdd, pb.lunchProtein, pb.dinnerProtein),
     });
   }
   return days;
 }
+
 
 
 const CARB_EXCHANGES = [
@@ -114,10 +327,11 @@ const CARB_EXCHANGES = [
 ];
 
 const PROTEIN_EXCHANGES = [
-  ["Egg", "1 whole"],
+  ["Egg", "1 whole, or 1 whole + 2 whites for less yolk/fat"],
   ["Chicken, cooked boneless", "30g (a small piece)"],
   ["Fish / prawns, cooked", "30–40g"],
   ["Paneer", "30g cube"],
+  ["Tofu, firm", "40g cube"],
   ["Soya chunks, dry", "10g (small handful, before soaking)"],
   ["Cooked dal / sambar, thick", "1/2 cup"],
   ["Sprouts, cooked or raw mix", "1/2 cup"],
@@ -134,6 +348,7 @@ const FAT_EXCHANGES = [
 ];
 
 const COMORBIDITY_OPTIONS = [
+  { key: "nafld", label: "Fatty liver (NAFLD)" },
   { key: "hypertension", label: "Hypertension (BP)" },
   { key: "thyroid", label: "Thyroid disorder" },
   { key: "pcos", label: "PCOS" },
@@ -161,6 +376,7 @@ function recordToProfile(record) {
     occupation: record.occupation || "",
     diabetes: record.diabetes || "no",
     goal: record.goal || "weightloss",
+    targetLossKg: record.targetLossKg ? String(record.targetLossKg) : "",
     activity: record.activity || "home",
     comorbidities: record.comorbidities ? String(record.comorbidities).split(",").map((s) => s.trim()).filter(Boolean) : [],
     comorbiditiesOther: record.comorbiditiesOther || "",
@@ -179,25 +395,76 @@ const ACTIVITY_LEVELS = {
     label: "Sedentary",
     detail: "Desk-based work or mostly seated day, minimal walking",
     multiplier: 1.2,
+    proteinBumpPerKg: 0,
+    carbPct: 0.5,
   },
   home: {
     label: "Home-based / homemaker",
     detail: "Cooking, cleaning, childcare — a lot of standing and moving around, but no continuous exercise",
     multiplier: 1.3,
+    proteinBumpPerKg: 0,
+    carbPct: 0.52,
+  },
+  light: {
+    label: "Light exercise",
+    detail: "A casual walk or light yoga 2–3 times a week, otherwise sedentary/home-based",
+    multiplier: 1.375,
+    proteinBumpPerKg: 0.05,
+    carbPct: 0.55,
+  },
+  active_job: {
+    label: "On-your-feet occupation",
+    detail: "Job that keeps you standing/walking most of the shift — nursing, field health work, retail, teaching — without formal exercise on top",
+    multiplier: 1.45,
+    proteinBumpPerKg: 0.1,
+    carbPct: 0.55,
   },
   moderate: {
     label: "Moderate",
     detail: "A structured walk or exercise session most days (30–45 min) on top of normal daily movement",
-    multiplier: 1.45,
+    multiplier: 1.5,
+    proteinBumpPerKg: 0.15,
+    carbPct: 0.57,
   },
   vigorous: {
     label: "Vigorous",
-    detail: "Physically demanding job (manual labour, fieldwork) or intense/frequent exercise",
+    detail: "Physically demanding job (manual labour, fieldwork) or intense/frequent structured exercise",
     multiplier: 1.65,
+    proteinBumpPerKg: 0.2,
+    carbPct: 0.6,
+  },
+  athlete: {
+    label: "Athlete / very intense training",
+    detail: "Daily intense training (an hour or more) or very heavy manual labour",
+    multiplier: 1.8,
+    proteinBumpPerKg: 0.3,
+    carbPct: 0.6,
   },
 };
 
-function computeTargets({ age, sex, weight, height, goal, activity, comorbidities = [], medications = "", gutSymptoms = [] }) {
+// Energy conversion factors — 4.4 kcal/g for carbohydrate and protein, 9 kcal/g for fat.
+const KCAL_PER_G_PROTEIN = 4.4;
+const KCAL_PER_G_CARB = 4.4;
+const KCAL_PER_G_FAT = 9;
+
+// Devine formula ideal body weight, used only to derive an adjusted body weight for
+// protein dosing in people carrying substantial fat mass — fat tissue doesn't have the
+// same protein requirement as lean tissue, so dosing off total body weight overstates
+// the need for anyone significantly overweight.
+function idealBodyWeightKg(sex, heightCm) {
+  const heightInches = heightCm / 2.54;
+  const base = sex === "male" ? 50 : 45.5;
+  return base + 2.3 * Math.max(heightInches - 60, 0);
+}
+
+function proteinDosingWeightKg(sex, heightCm, actualWeightKg) {
+  const ibw = idealBodyWeightKg(sex, heightCm);
+  if (actualWeightKg <= ibw) return { weight: actualWeightKg, ibw, adjusted: false };
+  const adjBW = ibw + 0.25 * (actualWeightKg - ibw);
+  return { weight: adjBW, ibw, adjusted: true };
+}
+
+function computeTargets({ age, sex, weight, height, goal, activity, comorbidities = [], medications = "", gutSymptoms = [], targetLossKg = "" }) {
   const w = parseFloat(weight) || 0;
   const h = parseFloat(height) || 0;
   const a = parseFloat(age) || 0;
@@ -210,25 +477,34 @@ function computeTargets({ age, sex, weight, height, goal, activity, comorbiditie
   const tdee = bmr * activityMultiplier;
 
   let calorieAdjust = 0;
-  let proteinPerKg;
   const elderly = a >= 60;
 
   if (goal === "weightloss") {
     calorieAdjust = -500;
-    proteinPerKg = elderly ? 1.5 : 1.4;
   } else if (goal === "fatloss") {
     calorieAdjust = -250;
-    proteinPerKg = elderly ? 1.6 : 1.6;
   } else {
     // insulin sensitivity, ideal body weight, maintenance
     calorieAdjust = 0;
-    proteinPerKg = elderly ? 1.2 : 1.0;
   }
+
+  // Protein held at 1.1–1.2 g/kg (adjusted) body weight — a fixed, deliberately modest and
+  // achievable range rather than scaling up with goal or activity.
+  let proteinPerKg = elderly ? 1.2 : 1.1;
 
   const hasKidneyDisease = comorbidities.includes("kidney");
   if (hasKidneyDisease) {
-    // Kidney disease calls for conservative, individualised protein — override the goal-based bump
+    // Kidney disease calls for conservative, individualised protein — override the standard range
     proteinPerKg = Math.min(proteinPerKg, 0.8);
+  }
+
+  const hasNAFLD = comorbidities.includes("nafld");
+
+  // Carbohydrate share fixed at 50% of calories, regardless of activity level.
+  let carbPct = 0.5;
+  if (hasNAFLD) {
+    // Fatty liver responds well to a lower added-sugar/refined-carb load — stays capped at 50% (no change here, kept explicit for clarity).
+    carbPct = Math.min(carbPct, 0.5);
   }
 
   const medText = (medications || "").toLowerCase();
@@ -240,13 +516,58 @@ function computeTargets({ age, sex, weight, height, goal, activity, comorbiditie
   const possibleIBS = gutSymptoms.includes("ibs_pain") || (gutSymptoms.includes("fodmap") && gutSymptoms.length >= 2);
 
   const calories = Math.max(1200, Math.round(tdee + calorieAdjust));
-  const proteinG = Math.round(proteinPerKg * w);
-  const proteinKcal = proteinG * 4;
-  const carbPct = 0.55; // midpoint of 50-60%
+
+  // Protein doses off adjusted body weight (not total weight) once someone is above their
+  // ideal body weight — kidney disease already uses actual weight deliberately (conservative
+  // dosing matters more than adjusting for fat mass there).
+  const dosing = hasKidneyDisease
+    ? { weight: w, ibw: idealBodyWeightKg(sex, h), adjusted: false }
+    : proteinDosingWeightKg(sex, h, w);
+  const proteinG = Math.round(proteinPerKg * dosing.weight);
+  const proteinKcal = proteinG * KCAL_PER_G_PROTEIN;
+
   const carbKcal = calories * carbPct;
-  const carbG = Math.round(carbKcal / 4);
-  const fatKcal = Math.max(calories - proteinKcal - carbKcal, calories * 0.2);
-  const fatG = Math.round(fatKcal / 9);
+  const carbG = Math.round(carbKcal / KCAL_PER_G_CARB);
+
+  // Fat takes whatever's left — no artificial floor, so protein + carb + fat always sums
+  // back to the calorie target exactly. If that leaves fat unusually low, flag it instead
+  // of silently overriding the numbers.
+  const fatKcal = Math.max(calories - proteinKcal - carbKcal, 0);
+  const fatG = Math.round(fatKcal / KCAL_PER_G_FAT);
+  const fatShareLow = fatKcal < calories * 0.15;
+
+  const micros = micronutrientTargets(sex, a);
+  // Standard fibre guideline: ~14g per 1000 kcal (Institute of Medicine), floored at a sensible minimum.
+  const fiberG = Math.max(25, Math.round((calories / 1000) * 14));
+
+  // Timeline projection for a stated weight/fat-loss target — uses ~7700 kcal per kg of
+  // fat as a standard rule of thumb. Real-world loss isn't perfectly linear (water shifts,
+  // metabolic adaptation), so treat this as a rough estimate, not a guarantee.
+  let lossProjection = null;
+  const lossKg = parseFloat(targetLossKg) || 0;
+  if (lossKg > 0 && calorieAdjust < 0) {
+    const dailyDeficitKcal = Math.abs(calorieAdjust);
+    const weeklyRateKg = (dailyDeficitKcal * 7) / 7700;
+    const estimatedWeeks = Math.ceil((lossKg * 7700) / (dailyDeficitKcal * 7));
+    const weeklyRatePct = (weeklyRateKg / w) * 100;
+    const safeMinPct = 0.5;
+    const safeMaxPct = 1.0;
+    let paceNote;
+    if (weeklyRatePct < safeMinPct) {
+      paceNote = "slower than the typical 0.5–1% of body weight per week — safe, just a longer road; fine if that matches expectations.";
+    } else if (weeklyRatePct > safeMaxPct) {
+      paceNote = "faster than the typically recommended 0.5–1% of body weight per week — worth a second look rather than assuming it's sustainable.";
+    } else {
+      paceNote = "within the typically recommended 0.5–1% of body weight per week.";
+    }
+    lossProjection = {
+      lossKg,
+      weeklyRateKg: Math.round(weeklyRateKg * 100) / 100,
+      weeklyRatePct: Math.round(weeklyRatePct * 100) / 100,
+      estimatedWeeks,
+      paceNote,
+    };
+  }
 
   return {
     bmr: Math.round(bmr),
@@ -255,20 +576,49 @@ function computeTargets({ age, sex, weight, height, goal, activity, comorbiditie
     proteinG,
     carbG,
     fatG,
+    carbPct,
+    fatShareLow,
+    proteinDosingWeight: Math.round(dosing.weight),
+    idealBodyWeight: Math.round(dosing.ibw),
+    proteinDosingAdjusted: dosing.adjusted,
     elderly,
     activityKey,
     hasKidneyDisease,
+    hasNAFLD,
     onHypoRiskDrug,
     possibleLactose,
     possibleGluten,
     possibleIBS,
+    micros,
+    fiberG,
+    lossProjection,
     split: {
-      breakfastCarb: Math.round(carbG * 0.2),
+      breakfastCarb: Math.round(carbG * 0.15),
+      midMorningCarb: Math.round(carbG * 0.05),
       lunchCarb: Math.round(carbG * 0.4),
-      dinnerCarb: Math.round(carbG * 0.3),
-      snackCarb: Math.round(carbG * 0.1),
+      eveningSnackCarb: Math.round(carbG * 0.1),
+      dinnerCarb: Math.round(carbG * 0.25),
+      bedtimeCarb: Math.round(carbG * 0.05),
     },
   };
+}
+
+/* ---------------------------------------------------------
+   MICRONUTRIENT REFERENCE TARGETS (ICMR-NIN 2020 RDA, approximate)
+--------------------------------------------------------- */
+function micronutrientTargets(sex, age) {
+  const elderly = age >= 60;
+  const femaleMenstruating = sex === "female" && age < 50;
+  return [
+    { name: "Iron", value: femaleMenstruating ? 29 : 19, unit: "mg" },
+    { name: "Calcium", value: elderly ? 1200 : 1000, unit: "mg" },
+    { name: "Vitamin D", value: elderly ? 20 : 15, unit: "mcg" },
+    { name: "Vitamin B12", value: 2.4, unit: "mcg" },
+    { name: "Folate", value: 200, unit: "mcg" },
+    { name: "Zinc", value: sex === "male" ? 17 : 13.2, unit: "mg" },
+    { name: "Magnesium", value: sex === "male" ? 440 : 370, unit: "mg" },
+    { name: "Iodine", value: 150, unit: "mcg" },
+  ];
 }
 
 /* ---------------------------------------------------------
@@ -299,6 +649,7 @@ function AdminApp({ onLogout }) {
   const [tab, setTab] = useState("profile");
   const [dietType, setDietType] = useState("nonveg");
   const [selectedDay, setSelectedDay] = useState(1);
+  const [currentDietEntries, setCurrentDietEntries] = useState([]);
 
   const [profile, setProfile] = useState({
     patientId: "",
@@ -310,6 +661,7 @@ function AdminApp({ onLogout }) {
     occupation: "",
     diabetes: "no",
     goal: "weightloss",
+    targetLossKg: "",
     activity: "home",
     comorbidities: [],
     comorbiditiesOther: "",
@@ -418,6 +770,7 @@ function AdminApp({ onLogout }) {
           {[
             ["profile", "Your targets"],
             ["chart", "14-day chart"],
+            ["current", "Current diet"],
             ["subs", "Substitution guide"],
             ["principles", "Principles"],
             ["gut", "Gut health"],
@@ -465,6 +818,10 @@ function AdminApp({ onLogout }) {
           )}
 
           {tab === "subs" && <SubsTab />}
+
+          {tab === "current" && (
+            <CurrentDietTab entries={currentDietEntries} setEntries={setCurrentDietEntries} targets={targets} />
+          )}
 
           {tab === "principles" && <PrinciplesTab />}
 
@@ -827,12 +1184,28 @@ function ProfileTab({
               <option value="insulin">Improve insulin sensitivity (already near ideal weight)</option>
             </select>
           </Field>
+          {(profile.goal === "weightloss" || profile.goal === "fatloss") && (
+            <Field label="Target weight/fat loss (kg)">
+              <input
+                type="number"
+                min="0"
+                step="0.5"
+                value={profile.targetLossKg}
+                onChange={update("targetLossKg")}
+                placeholder="e.g. 10"
+                style={styles.input}
+              />
+            </Field>
+          )}
           <Field label="Daily activity level">
             <select value={profile.activity} onChange={update("activity")} style={styles.input}>
               <option value="sedentary">Sedentary — desk job, mostly seated</option>
               <option value="home">Home-based — housework, cooking, childcare</option>
+              <option value="light">Light exercise — casual walk/yoga 2–3x/week</option>
+              <option value="active_job">On-your-feet job — nursing, field work, retail, teaching</option>
               <option value="moderate">Moderate — structured walk/exercise most days</option>
               <option value="vigorous">Vigorous — manual labour or intense exercise</option>
+              <option value="athlete">Athlete — daily intense training or very heavy labour</option>
             </select>
           </Field>
         </div>
@@ -924,6 +1297,14 @@ function ProfileTab({
               rather than raised for the weight/fat-loss goal. Adjust to the patient's actual stage before finalising.
             </div>
           )}
+          {targets.hasNAFLD && (
+            <div style={styles.reviewBox}>
+              <b>Flag for review:</b> fatty liver (NAFLD) on file — carbohydrate share has been leaned toward the
+              lower end (~50%) and added-sugar sources minimised, since 7–10% body weight loss and reduced
+              fructose/refined-carb load are the best-evidenced levers for liver fat. The weight-reduction goal is
+              usually the most appropriate choice here if not already selected.
+            </div>
+          )}
           {targets.possibleLactose && (
             <div style={styles.reviewBox}>
               <b>Gut screen — possible lactose intolerance:</b> consider a trial cutting back milk/ice cream first.
@@ -950,18 +1331,39 @@ function ProfileTab({
             <TargetBox
               label="Calories"
               value={`${targets.calories} kcal/day`}
-              note={`Maintenance ≈ ${targets.tdee} kcal, based on "${ACTIVITY_LEVELS[targets.activityKey].label}" activity`}
+              note={`Maintenance ≈ ${targets.tdee} kcal at "${ACTIVITY_LEVELS[targets.activityKey].label}" activity (${ACTIVITY_LEVELS[targets.activityKey].detail}). Activity level scales this total directly — carb and fat grams below rise and fall with it, even though their % shares stay fixed.`}
             />
-            <TargetBox label="Carbohydrate" value={`${targets.carbG} g/day (~55%)`} note="Spread lighter at breakfast, more at lunch" />
-            <TargetBox label="Protein" value={`${targets.proteinG} g/day`} note={targets.elderly ? "Higher target — adults 60+ need more protein per kg to counter age-related muscle loss (anabolic resistance)" : "Split evenly across 3–4 meals for muscle upkeep"} />
-            <TargetBox label="Fat" value={`${targets.fatG} g/day`} note="Not restricted — needed for satiety and vitamin absorption" />
+            <TargetBox label="Carbohydrate" value={`${targets.carbG} g/day (~50%)`} note="Spread lighter at breakfast, more at lunch" />
+            <TargetBox
+              label="Protein"
+              value={`${targets.proteinG} g/day`}
+              note={
+                targets.elderly
+                  ? "Higher target — adults 60+ need more protein per kg to counter age-related muscle loss (anabolic resistance)"
+                  : targets.proteinDosingAdjusted
+                  ? `Dosed off an adjusted body weight of ${targets.proteinDosingWeight}kg (not the full ${profile.weight}kg) — ideal body weight ≈ ${targets.idealBodyWeight}kg, since fat mass doesn't carry the same protein need as lean mass`
+                  : "Split evenly across 3–4 meals for muscle upkeep"
+              }
+            />
+            <TargetBox
+              label="Fat"
+              value={`${targets.fatG} g/day`}
+              note={targets.fatShareLow ? "Fat share is quite low at this protein/carb combination — consider easing the carb % or protein target slightly if this feels too lean." : "Not restricted — needed for satiety and vitamin absorption"}
+            />
+            <TargetBox
+              label="Dietary fibre"
+              value={`${targets.fiberG} g/day`}
+              note="From vegetables, dal, millets, sprouts, and whole fruit (skin-on where possible) — not from a fibre supplement"
+            />
           </div>
           <h3 style={styles.h3}>How to spend the carbs across the day</h3>
           <div style={styles.splitRow}>
             <SplitChip label="Breakfast" value={`~${targets.split.breakfastCarb} g`} />
-            <SplitChip label="Mid-morning" value={`~${targets.split.snackCarb} g`} />
+            <SplitChip label="Mid-morning" value={`~${targets.split.midMorningCarb} g`} />
             <SplitChip label="Lunch" value={`~${targets.split.lunchCarb} g`} />
+            <SplitChip label="Evening snack" value={`~${targets.split.eveningSnackCarb} g`} />
             <SplitChip label="Dinner" value={`~${targets.split.dinnerCarb} g`} />
+            <SplitChip label="Bedtime" value={`~${targets.split.bedtimeCarb} g`} />
           </div>
           <p style={styles.note}>
             Breakfast is deliberately the lightest carb meal — insulin resistance is typically highest in the morning
@@ -969,8 +1371,46 @@ function ProfileTab({
             and the largest carb share moves to lunch when activity and insulin sensitivity are usually better.
           </p>
           <p style={styles.note}>
+            The small bedtime portion is deliberate too — a tiny protein/fat-forward snack before sleep (not a
+            second dessert) helps keep blood sugar steadier overnight rather than dipping and rebounding.
+          </p>
+          <p style={styles.note}>
             Use the serving sizes in the <b>Substitution guide</b> tab to translate these grams into the actual dosa,
             rice, dal and oil amounts on your plate.
+          </p>
+
+          {targets.lossProjection && (
+            <>
+              <h3 style={styles.h3}>Projected timeline</h3>
+              <div style={styles.projectionBox}>
+                Losing <b>{targets.lossProjection.lossKg}kg</b> at this deficit works out to about{" "}
+                <b>{targets.lossProjection.weeklyRateKg}kg/week</b> ({targets.lossProjection.weeklyRatePct}% of body
+                weight/week) — roughly <b>{targets.lossProjection.estimatedWeeks} weeks</b> (~
+                {Math.round(targets.lossProjection.estimatedWeeks / 4.3)} months). That pace is{" "}
+                {targets.lossProjection.paceNote}
+              </div>
+              <p style={styles.note}>
+                This uses the standard ~7700 kcal-per-kg rule of thumb. Real progress isn't perfectly linear — water
+                weight, adherence, and metabolic adaptation all move it around — so treat this as a planning
+                estimate to revisit at follow-up, not a fixed deadline.
+              </p>
+            </>
+          )}
+
+          <h3 style={styles.h3}>Micronutrient reference targets (daily)</h3>
+          <div style={styles.microGrid}>
+            {targets.micros.map((m) => (
+              <div key={m.name} style={styles.microChip}>
+                <div style={{ fontSize: 12, color: COLORS.muted }}>{m.name}</div>
+                <div style={{ fontFamily: "Fraunces, serif", fontSize: 16, color: COLORS.primary, fontWeight: 600 }}>
+                  {m.value} {m.unit}
+                </div>
+              </div>
+            ))}
+          </div>
+          <p style={styles.note}>
+            These are general ICMR-NIN reference values by age and sex — not a lab-based individual target. Treat
+            them as a screening reference; if a specific deficiency is suspected clinically, test rather than assume.
           </p>
         </div>
       )}
@@ -1062,6 +1502,7 @@ function ChartTab({ dietType, setDietType, plan, selectedDay, setSelectedDay, da
           />
           <MealBlock title="Evening snack" items={[dayData.eveningSnack]} />
           <MealBlock title="Dinner (earlier, ~7–7:30pm where possible)" items={[dayData.dinnerCarb, dayData.dinnerKootu, dayData.dinnerProtein]} />
+          <MealBlock title="Bedtime (small, ~30–45 min before sleep)" items={[dayData.bedtimeSnack]} />
 
           {dayData.cheat && (
             <div style={styles.cheatBox}>
@@ -1085,6 +1526,18 @@ function ChartTab({ dietType, setDietType, plan, selectedDay, setSelectedDay, da
           <div style={styles.gutBox}>
             <b>Gut tip:</b> {dayData.gutTip}
           </div>
+
+          {targets && (
+            <div style={styles.proteinBox}>
+              <b>Protein check:</b> this day's template provides roughly <b>{dayData.templateProteinG}g</b> protein.
+              Your target is <b>{targets.proteinG}g</b>.{" "}
+              {targets.proteinG - dayData.templateProteinG > 5
+                ? `Add about ${targets.proteinG - dayData.templateProteinG}g more — an extra egg (~6g), 30g chicken/fish/paneer (~7–10g), or 1/2 cup dal/sprouts (~6–8g), from the Substitution guide.`
+                : targets.proteinG - dayData.templateProteinG < -5
+                ? "This day already runs a bit above target — fine occasionally, or trim a protein portion slightly if it matters for total calories."
+                : "This day is close to your target as written."}
+            </div>
+          )}
         </div>
       )}
     </section>
@@ -1116,7 +1569,10 @@ function PrintableHandout({ profile, targets, plan, dietType }) {
     .filter(Boolean);
   if (profile.comorbiditiesOther) comorbidityLabels.push(profile.comorbiditiesOther);
 
-  const goalLabel = { weightloss: "Weight reduction", fatloss: "Fat reduction / recomposition", insulin: "Improve insulin sensitivity" }[profile.goal];
+  const goalLabelBase = { weightloss: "Weight reduction", fatloss: "Fat reduction / recomposition", insulin: "Improve insulin sensitivity" }[profile.goal];
+  const goalLabel = profile.targetLossKg && (profile.goal === "weightloss" || profile.goal === "fatloss")
+    ? `${goalLabelBase} — target ${profile.targetLossKg}kg`
+    : goalLabelBase;
 
   return (
     <div style={ps.page}>
@@ -1170,6 +1626,7 @@ function PrintableHandout({ profile, targets, plan, dietType }) {
             <div style={ps.targetCell}><b>{targets.carbG}</b> g carbohydrate</div>
             <div style={ps.targetCell}><b>{targets.proteinG}</b> g protein</div>
             <div style={ps.targetCell}><b>{targets.fatG}</b> g fat</div>
+            <div style={ps.targetCell}><b>{targets.fiberG}</b> g fibre</div>
           </div>
           <div style={ps.smallNote}>
             Carb split across the day — Breakfast ~{targets.split.breakfastCarb}g · Mid-morning ~{targets.split.snackCarb}g ·
@@ -1192,7 +1649,7 @@ function PrintableHandout({ profile, targets, plan, dietType }) {
       <table style={ps.dayTable}>
         <thead>
           <tr>
-            {["Day", "Breakfast", "Mid-morning", "Lunch", "Evening snack", "Dinner", "Note"].map((h) => (
+            {["Day", "Breakfast", "Mid-morning", "Lunch", "Evening snack", "Dinner", "Bedtime", "Note"].map((h) => (
               <th key={h} style={ps.th}>{h}</th>
             ))}
           </tr>
@@ -1206,6 +1663,7 @@ function PrintableHandout({ profile, targets, plan, dietType }) {
               <td style={ps.tdPrint}>{d.lunchCarb}; {d.lunchGravy}; {d.poriyal}; {d.lunchProtein}</td>
               <td style={ps.tdPrint}>{d.eveningSnack}</td>
               <td style={ps.tdPrint}>{d.dinnerCarb}; {d.dinnerKootu}; {d.dinnerProtein}</td>
+              <td style={ps.tdPrint}>{d.bedtimeSnack}</td>
               <td style={ps.tdPrint}>{d.cheat ? `Cheat sweet: ${d.cheat}` : ""}</td>
             </tr>
           ))}
@@ -1247,6 +1705,155 @@ function PrintExTable({ title, rows }) {
         </tbody>
       </table>
     </div>
+  );
+}
+
+
+/* ---------------------------------------------------------
+   CURRENT DIET TAB — 24-hour food log, totals, interpretation, comparison
+--------------------------------------------------------- */
+function CurrentDietTab({ entries, setEntries, targets }) {
+  const [slot, setSlot] = useState("Breakfast");
+  const [foodKey, setFoodKey] = useState(FOOD_DB[0].key);
+  const [qty, setQty] = useState("1");
+
+  const addEntry = () => {
+    setEntries((prev) => [...prev, { id: Date.now() + Math.random(), slot, foodKey, qty }]);
+  };
+  const removeEntry = (id) => setEntries((prev) => prev.filter((e) => e.id !== id));
+
+  const { totals, carbPctCurrent, findings } = analyzeCurrentDiet(entries, targets);
+
+  return (
+    <section>
+      <div style={styles.card}>
+        <h2 style={styles.h2}>What's the patient eating right now?</h2>
+        <p style={styles.note}>
+          Log a typical 24 hours, meal by meal, using the closest matching food and quantity. This uses a fixed local
+          food-composition reference (typical home portions) — treat the totals as counselling-grade estimates, not
+          lab-measured values.
+        </p>
+
+        <div style={styles.grid2}>
+          <Field label="Meal time">
+            <select value={slot} onChange={(e) => setSlot(e.target.value)} style={styles.input}>
+              {MEAL_SLOTS.map((s) => (
+                <option key={s} value={s}>{s}</option>
+              ))}
+            </select>
+          </Field>
+          <Field label="Food item">
+            <select value={foodKey} onChange={(e) => setFoodKey(e.target.value)} style={styles.input}>
+              {FOOD_DB.map((f) => (
+                <option key={f.key} value={f.key}>{f.name}</option>
+              ))}
+            </select>
+          </Field>
+          <Field label="Quantity (servings)">
+            <input type="number" step="0.5" min="0.5" value={qty} onChange={(e) => setQty(e.target.value)} style={styles.input} />
+          </Field>
+        </div>
+        <button onClick={addEntry} style={{ ...styles.exportBtn, marginTop: 12 }}>
+          Add to log
+        </button>
+
+        {entries.length > 0 && (
+          <div style={{ marginTop: 16 }}>
+            {MEAL_SLOTS.filter((s) => entries.some((e) => e.slot === s)).map((s) => (
+              <div key={s} style={{ marginBottom: 10 }}>
+                <div style={styles.mealTitle}>{s}</div>
+                <ul style={styles.mealList}>
+                  {entries
+                    .filter((e) => e.slot === s)
+                    .map((e) => {
+                      const food = FOOD_DB.find((f) => f.key === e.foodKey);
+                      return (
+                        <li key={e.id} style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                          <span>{food?.name} × {e.qty}</span>
+                          <button onClick={() => removeEntry(e.id)} style={styles.removeBtn}>
+                            Remove
+                          </button>
+                        </li>
+                      );
+                    })}
+                </ul>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+
+      {entries.length > 0 && (
+        <>
+          <div style={styles.card}>
+            <h2 style={styles.h2}>Current intake — totals</h2>
+            <div style={styles.targetGrid}>
+              <TargetBox label="Calories" value={`${Math.round(totals.kcal)} kcal`} note="Estimated from the log above" />
+              <TargetBox label="Protein" value={`${Math.round(totals.protein)} g`} note="" />
+              <TargetBox label="Carbohydrate" value={`${Math.round(totals.carb)} g (~${carbPctCurrent}%)`} note="" />
+              <TargetBox label="Fat" value={`${Math.round(totals.fat)} g`} note="" />
+            </div>
+          </div>
+
+          <div style={styles.card}>
+            <h2 style={styles.h2}>Interpretation — what's likely going wrong</h2>
+            {findings.length === 0 ? (
+              <p style={styles.note}>No major flags from this log against the current targets.</p>
+            ) : (
+              <ul style={styles.mealList}>
+                {findings.map((f, i) => (
+                  <li key={i}>{f}</li>
+                ))}
+              </ul>
+            )}
+          </div>
+
+          {targets && (
+            <div style={styles.card}>
+              <h2 style={styles.h2}>Current diet vs. the new TREAT chart</h2>
+              <table style={styles.table}>
+                <thead>
+                  <tr>
+                    <th style={styles.td}></th>
+                    <th style={styles.td}>Current (logged)</th>
+                    <th style={styles.td}>New chart target</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr style={styles.trEven}>
+                    <td style={styles.td}><b>Calories</b></td>
+                    <td style={styles.td}>{Math.round(totals.kcal)} kcal</td>
+                    <td style={styles.td}>{targets.calories} kcal</td>
+                  </tr>
+                  <tr>
+                    <td style={styles.td}><b>Protein</b></td>
+                    <td style={styles.td}>{Math.round(totals.protein)} g</td>
+                    <td style={styles.td}>{targets.proteinG} g</td>
+                  </tr>
+                  <tr style={styles.trEven}>
+                    <td style={styles.td}><b>Carbohydrate</b></td>
+                    <td style={styles.td}>{Math.round(totals.carb)} g (~{carbPctCurrent}%)</td>
+                    <td style={styles.td}>{targets.carbG} g (~{Math.round(targets.carbPct * 100)}%)</td>
+                  </tr>
+                  <tr>
+                    <td style={styles.td}><b>Fat</b></td>
+                    <td style={styles.td}>{Math.round(totals.fat)} g</td>
+                    <td style={styles.td}>{targets.fatG} g</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p style={{ ...styles.note, marginTop: 12 }}>
+                <b>Recommendation:</b> the gap above is addressed less by cutting food out and more by
+                re-ordering and re-pairing what's already familiar — moving protein to the start of each meal,
+                pairing every carb with protein/fat/fibre, shifting the largest carb portion to lunch instead of
+                breakfast, and replacing habitual sugared tea/snacks with the one planned cheat sweet every 4–5
+                days. The 14-day chart translates this into the specific dishes and portions to use.
+              </p>
+            </div>
+          )}
+        </>
+      )}
+    </section>
   );
 }
 
@@ -1517,10 +2124,14 @@ const styles = {
   targetNote: { fontSize: 12.5, color: COLORS.muted, lineHeight: 1.4 },
   splitRow: { display: "flex", gap: 10, flexWrap: "wrap", marginBottom: 10 },
   splitChip: { background: "#FDFBFF", border: `1px solid ${COLORS.line}`, borderRadius: 8, padding: "8px 14px", textAlign: "center", flex: "1 1 100px" },
+  microGrid: { display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 10, marginTop: 8 },
+  microChip: { background: "#FDFBFF", border: `1px solid ${COLORS.line}`, borderRadius: 8, padding: "8px 6px", textAlign: "center" },
+  projectionBox: { background: "#F3ECFB", borderLeft: "4px solid #6B3FA0", borderRadius: 6, padding: 12, fontSize: 14, color: "#4A2670", marginBottom: 6 },
   note: { fontSize: 14, color: COLORS.muted, lineHeight: 1.55 },
   checkGrid: { display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 8, marginTop: 8 },
   checkGridSingle: { display: "grid", gridTemplateColumns: "1fr", gap: 8, marginTop: 8 },
   savedRow: { textAlign: "left", background: "#FCFAFE", border: `1px solid ${COLORS.line}`, borderRadius: 6, padding: "8px 12px", fontSize: 13.5, cursor: "pointer", color: COLORS.ink },
+  removeBtn: { background: "none", border: "none", color: "#C21F2B", fontSize: 12.5, cursor: "pointer", textDecoration: "underline", padding: 0 },
   checkItem: { display: "flex", alignItems: "center", gap: 8, fontSize: 14, background: "#FCFAFE", border: `1px solid ${COLORS.line}`, borderRadius: 6, padding: "7px 10px" },
   reviewBox: { background: "#F3ECFB", borderLeft: "4px solid #6B3FA0", borderRadius: 6, padding: 12, fontSize: 14, color: "#4A2670", marginBottom: 14 },
   segment: { display: "flex", background: "#F1E6F7", borderRadius: 8, padding: 3 },
@@ -1537,6 +2148,7 @@ const styles = {
   walkBox: { background: "#F1E6F7", borderLeft: "4px solid #8B5FB0", borderRadius: 6, padding: 12, fontSize: 14, marginBottom: 10, color: "#4A2670" },
   orderBox: { background: "#F7F3FC", borderLeft: "4px solid #4A2670", borderRadius: 6, padding: 12, fontSize: 14, color: "#4A2670" },
   gutBox: { background: "#FBEAF0", borderLeft: "4px solid #8B5FB0", borderRadius: 6, padding: 12, fontSize: 14, color: "#5A2F52", marginTop: 10 },
+  proteinBox: { background: "#EFF6F0", borderLeft: "4px solid #3F8A5C", borderRadius: 6, padding: 12, fontSize: 14, color: "#265C3B", marginTop: 10 },
   table: { width: "100%", borderCollapse: "collapse", fontSize: 14 },
   trEven: { background: "#F7F1FB" },
   td: { padding: "8px 10px", borderBottom: `1px solid ${COLORS.line}` },
