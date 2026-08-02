@@ -36,8 +36,6 @@ const BREAKFASTS = [
   { name: "Whole-wheat vermicelli upma (1 cup)", side: "—", carbEx: 1.5 },
 ];
 
-const LUNCH_GRAVY = ["Sambar (mixed vegetable)", "Mor kuzhambu", "Kara kuzhambu (light, less oil)", "Paruppu kuzhambu", "Vatha kuzhambu (light)", "Sambar (drumstick)", "Mor kuzhambu"];
-
 const PORIYAL = ["Cabbage-carrot poriyal", "Beans poriyal", "Chow-chow poriyal", "Cluster beans poriyal", "Beetroot poriyal", "Ladies finger poriyal", "Mixed vegetable poriyal"];
 
 const DINNER_KOOTU = ["Chow-chow kootu", "Pumpkin kootu", "Carrot-beans kootu", "Snake gourd kootu", "Ash gourd kootu", "Cabbage kootu", "Mixed vegetable kootu"];
@@ -196,17 +194,17 @@ function analyzeCurrentDiet(entries, targets) {
 function proteinBlock(type, dietType) {
   if (dietType === "veg") {
     switch (type) {
-      case "egg": return { breakfastAdd: "Paruppu podi (1 tbsp) with dosa", lunchProtein: "Extra paruppu kuzhambu (2 cups) + paneer (40g)", dinnerProtein: "Extra curd (1 cup) + paneer (30g)" };
-      case "chicken": return { breakfastAdd: "Sprouts sundal (3/4 cup)", lunchProtein: "Soya chunk curry (45g dry soya)", dinnerProtein: "40g paneer + curd (small cup)" };
-      case "fish": return { breakfastAdd: "Sprouts sundal (3/4 cup)", lunchProtein: "Tofu or paneer curry (100g)", dinnerProtein: "40g paneer + curd (small cup)" };
-      default: return { breakfastAdd: "Sprouts sundal (3/4 cup)", lunchProtein: "Kadala (chickpea) curry (1.25 cups) + paneer (40g)", dinnerProtein: "40g paneer + curd (small cup)" };
+      case "egg": return { breakfastAdd: "Paruppu podi (1 tbsp) with dosa", lunchMain: "Extra paruppu kuzhambu (2 cups) + paneer (40g)", dinnerProtein: "Extra curd (1 cup) + paneer (30g)" };
+      case "chicken": return { breakfastAdd: "Sprouts sundal (3/4 cup)", lunchMain: "Soya chunk curry (55g dry soya)", dinnerProtein: "40g paneer + curd (small cup)" };
+      case "fish": return { breakfastAdd: "Sprouts sundal (3/4 cup)", lunchMain: "Tofu or paneer curry (120g)", dinnerProtein: "40g paneer + curd (small cup)" };
+      default: return { breakfastAdd: "Sprouts sundal (3/4 cup)", lunchMain: "Kadala (chickpea) curry (1.5 cups) + paneer (40g)", dinnerProtein: "40g paneer + curd (small cup)" };
     }
   }
   switch (type) {
-    case "egg": return { breakfastAdd: "1 whole egg + 2 egg whites (boiled)", lunchProtein: "Paruppu kuzhambu (2 cups) + paneer (40g)", dinnerProtein: "Curd (1 cup) + paneer (20g)" };
-    case "chicken": return { breakfastAdd: "Sprouts sundal (3/4 cup)", lunchProtein: "Chicken curry (110–130g cooked, skinless)", dinnerProtein: "3 egg whites (boiled) + curd (small cup)" };
-    case "fish": return { breakfastAdd: "Sprouts sundal (3/4 cup)", lunchProtein: "Fish or prawn curry (110–130g cooked)", dinnerProtein: "3 egg whites (boiled) + curd (small cup)" };
-    default: return { breakfastAdd: "Sprouts sundal (3/4 cup)", lunchProtein: "Kadala (chickpea) curry (1.25 cups) + paneer (40g)", dinnerProtein: "3 egg whites (boiled) + curd (small cup)" };
+    case "egg": return { breakfastAdd: "1 whole egg + 2 egg whites (boiled)", lunchMain: "Paruppu kuzhambu (2 cups) + paneer (40g)", dinnerProtein: "Curd (1 cup) + paneer (20g)" };
+    case "chicken": return { breakfastAdd: "Sprouts sundal (3/4 cup)", lunchMain: "Chicken curry (120–140g cooked, skinless)", dinnerProtein: "3 egg whites (boiled) + curd (small cup)" };
+    case "fish": return { breakfastAdd: "Sprouts sundal (3/4 cup)", lunchMain: "Fish or prawn curry (120–140g cooked)", dinnerProtein: "3 egg whites (boiled) + curd (small cup)" };
+    default: return { breakfastAdd: "Sprouts sundal (3/4 cup)", lunchMain: "Kadala (chickpea) curry (1.5 cups) + paneer (40g)", dinnerProtein: "3 egg whites (boiled) + curd (small cup)" };
   }
 }
 
@@ -230,15 +228,14 @@ const ADD_ON_PROTEIN = {
   "Paruppu podi (1 tbsp) with dosa": 2,
 };
 const MIDMORNING_PROTEIN = { "Buttermilk (1 cup, no sugar)": 3, "Handful (10–12) roasted peanuts or almonds": 6 };
-const LUNCH_GRAVY_PROTEIN = { "Sambar (mixed vegetable)": 6, "Mor kuzhambu": 2, "Kara kuzhambu (light, less oil)": 2, "Paruppu kuzhambu": 12, "Vatha kuzhambu (light)": 2, "Sambar (drumstick)": 6 };
-const LUNCH_PROTEIN_G = {
+const LUNCH_MAIN_PROTEIN = {
   "Paruppu kuzhambu (2 cups) + paneer (40g)": 31.2,
-  "Chicken curry (110–130g cooked, skinless)": 28,
-  "Fish or prawn curry (110–130g cooked)": 25,
-  "Kadala (chickpea) curry (1.25 cups) + paneer (40g)": 15.95,
+  "Chicken curry (120–140g cooked, skinless)": 31,
+  "Fish or prawn curry (120–140g cooked)": 27,
+  "Kadala (chickpea) curry (1.5 cups) + paneer (40g)": 17.7,
   "Extra paruppu kuzhambu (2 cups) + paneer (40g)": 31.2,
-  "Soya chunk curry (45g dry soya)": 22.5,
-  "Tofu or paneer curry (100g)": 18,
+  "Soya chunk curry (55g dry soya)": 27.5,
+  "Tofu or paneer curry (120g)": 21.6,
 };
 const EVENING_SNACK_PROTEIN = {
   "Roasted chana (1/2 cup) + buttermilk": 13,
@@ -267,14 +264,13 @@ const BEDTIME_PROTEIN_G = {
 const PORIYAL_PROTEIN = 2;
 const DINNER_KOOTU_PROTEIN = 4;
 
-function estimateTemplateProtein(idx, midMorning, eveningSnack, bedtimeSnack, breakfastAdd, lunchProtein, dinnerProtein) {
+function estimateTemplateProtein(idx, midMorning, eveningSnack, bedtimeSnack, breakfastAdd, lunchMain, dinnerProtein) {
   return Math.round(
     BREAKFAST_DISH_PROTEIN[idx] +
       (ADD_ON_PROTEIN[breakfastAdd] || 0) +
       (MIDMORNING_PROTEIN[midMorning] || 0) +
-      LUNCH_GRAVY_PROTEIN[LUNCH_GRAVY[idx]] +
       PORIYAL_PROTEIN +
-      (LUNCH_PROTEIN_G[lunchProtein] || 0) +
+      (LUNCH_MAIN_PROTEIN[lunchMain] || 0) +
       (EVENING_SNACK_PROTEIN[eveningSnack] || 0) +
       DINNER_KOOTU_PROTEIN +
       (DINNER_PROTEIN_G[dinnerProtein] || 0) +
@@ -296,9 +292,8 @@ function buildPlan(dietType) {
       breakfast: BREAKFASTS[idx],
       breakfastAdd: pb.breakfastAdd,
       midMorning,
-      lunchGravy: LUNCH_GRAVY[idx],
       poriyal: PORIYAL[idx],
-      lunchProtein: pb.lunchProtein,
+      lunchMain: pb.lunchMain,
       lunchCarb: "Rice + 30–40% cooked millet mixed in, 1 small katori (or 2 small chapati)",
       eveningSnack,
       dinnerCarb: "2 small millet/wheat chapati (or 1 small katori rice, lighter than lunch)",
@@ -308,7 +303,7 @@ function buildPlan(dietType) {
       cheat: CHEAT_DAYS[i] || null,
       proteinType: type,
       gutTip: GUT_TIPS[idx],
-      templateProteinG: estimateTemplateProtein(idx, midMorning, eveningSnack, bedtimeSnack, pb.breakfastAdd, pb.lunchProtein, pb.dinnerProtein),
+      templateProteinG: estimateTemplateProtein(idx, midMorning, eveningSnack, bedtimeSnack, pb.breakfastAdd, pb.lunchMain, pb.dinnerProtein),
     });
   }
   return days;
@@ -1533,7 +1528,7 @@ function ChartTab({ dietType, setDietType, plan, selectedDay, setSelectedDay, da
           <MealBlock title="Mid-morning" items={[dayData.midMorning]} />
           <MealBlock
             title="Lunch"
-            items={[dayData.lunchCarb, dayData.lunchGravy, dayData.poriyal, dayData.lunchProtein, "Buttermilk or curd, small cup"]}
+            items={[dayData.lunchCarb, dayData.poriyal, dayData.lunchMain, "Buttermilk or curd, small cup"]}
           />
           <MealBlock title="Evening snack" items={[dayData.eveningSnack]} />
           <MealBlock title="Dinner (earlier, ~7–7:30pm where possible)" items={[dayData.dinnerCarb, dayData.dinnerKootu, dayData.dinnerProtein]} />
@@ -1696,7 +1691,7 @@ function PrintableHandout({ profile, targets, plan, dietType }) {
               <td style={ps.tdPrint}><b>{d.day}</b></td>
               <td style={ps.tdPrint}>{d.breakfast.name}{d.breakfast.side !== "—" ? `, ${d.breakfast.side}` : ""}, {d.breakfastAdd}</td>
               <td style={ps.tdPrint}>{d.midMorning}</td>
-              <td style={ps.tdPrint}>{d.lunchCarb}; {d.lunchGravy}; {d.poriyal}; {d.lunchProtein}</td>
+              <td style={ps.tdPrint}>{d.lunchCarb}; {d.poriyal}; {d.lunchMain}</td>
               <td style={ps.tdPrint}>{d.eveningSnack}</td>
               <td style={ps.tdPrint}>{d.dinnerCarb}; {d.dinnerKootu}; {d.dinnerProtein}</td>
               <td style={ps.tdPrint}>{d.bedtimeSnack}</td>
@@ -2011,6 +2006,13 @@ function PrinciplesTab() {
           Every dish here is a normal, everyday Tamil Nadu kitchen item — no all-day chopping of salad vegetables, no
           soaking-and-blending smoothies, no batch-cooking a week ahead. Sprouts are the one "prep" item: soak dried
           legumes overnight, tie in a damp cloth for a day, and they're ready to use for 2–3 days.
+        </p>
+        <p style={styles.note}>
+          Each meal is deliberately kept to <b>one</b> main wet dish (one kuzhambu/curry, not two) plus one quick
+          side, so the whole day realistically fits in about <b>1.5–2 hours of hands-on cooking</b>: breakfast
+          ~20–25 min (batter is fermented ahead of time, not made same-day), lunch ~45–60 min (rice/millet cooks
+          largely unattended while the one main dish and poriyal are on the stove), dinner ~30–40 min (chapati +
+          one kootu), and snacks are effectively no-cook (buttermilk, roasted nuts, warm milk).
         </p>
 
         <h3 style={styles.h3}>9. What this chart deliberately leaves out</h3>
